@@ -40,7 +40,7 @@ router.patch('/', usuariosPatch);
 router.delete('/:id',[
     check('id','No es un ID valido').isMongoId(),
     check('id').custom(existeUsuarioPorId),
-    vali
+    validarCampos
 ],usuariosDelete);
 
 module.exports = router;
