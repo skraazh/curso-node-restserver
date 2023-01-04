@@ -1,6 +1,9 @@
 const { Schema, model }= require('mongoose');
 
 const UsuarioSchme = Schema({
+    // _id:{
+    //     type: Object,
+    // },
     nombre:{
         type: String,
         required: [true,'nombre es requerido']
@@ -19,7 +22,7 @@ const UsuarioSchme = Schema({
     rol:{
         type: String,
         required: true,
-        enum: ['ADMIN_ROL','USER_ROL']
+        emun: ['ADMIN_ROL','USER_ROL']
     },
     estado:{
         type: Boolean,
@@ -30,5 +33,13 @@ const UsuarioSchme = Schema({
         default: false
     }
 });
+
+// Se modifica el metodo toJSON para que envie toda
+// la informacion del usuario menos la version y 
+// el password
+UsuarioSchme.methods.toJSON = function(){
+    const { __v, password, ...usuario} = this.toObject();
+    return usuario;
+}
 
 module.exports = model('Usuario',UsuarioSchme);
